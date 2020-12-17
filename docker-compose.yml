@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  backend:
+    image: alexisbackend
+    build: backend/
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_NAME=alexis
+      - DATABASE_USER=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=postgres
+
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_DB=alexis
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
